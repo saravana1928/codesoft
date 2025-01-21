@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+using namespace std;
+void calculate() {
+    double num1, num2;
+    char op;
+    
+    cout << "Enter ttwo number aand its operator : ";
+    cin >> num1 >> num2>> op;
+
+    switch (op) {
+        case '+':
+            cout << "Result: " << num1 + num2 << endl;
+            break;
+        case '-':
+            cout << "Result: " << num1 - num2 << endl;
+            break;
+        case '*':
+            cout << "Result: " << num1 * num2 << endl;
+            break;
+        case '/':
+            if (num2 != 0) {
+                cout << "Result: " << num1 / num2 << endl;
+            } else {
+                cout << "Error: Division by zero!" << endl;
+            }
+            break;
+        default:
+            cout << "Invalid operator!" << endl;
+            break;
+    }
+}
+
+
+void tellFact() {
+    cout << "Venus is the hottest planet in our solar system, even though Mercury is closer to the Sun." << endl;
+}
+
+
+void greetUser() {
+    cout << "Hello! what can you do for you ?" << endl;
+}
+void tellabout()
+{
+    cout<<"Tell about yourself and say about enjoy movement";
+}
+
+int main() {
+    string command;
+
+    greetUser();
+
+    while (true) {
+        cout << "Please enter any opertion ( talk, calc, fact, exit): ";
+        cin>>command;
+
+        if (command == "talk") {
+            tellabout();
+        } 
+        else if (command == "calc") {
+            calculate();
+        } 
+        else if (command == "fact") {
+            tellFact();
+        } 
+        else if (command == "exit") {
+            cout << "Goodbye! Have a great day!" << endl;
+            break;
+        } 
+        else {
+            cout << "Sorry, I didn't understand that command." << endl;
+        }
+    }
+
+    return 0;
+}
