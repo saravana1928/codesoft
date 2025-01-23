@@ -1,0 +1,36 @@
+import tensorflow as tf
+from tensorflow.keras.applications import ResNet50
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Embedding, LSTM, Dense, add
+
+# Load pre-trained CNN (ResNet50)
+image_model = ResNet50(include_top=False, pooling='avg')
+image_input = image_model.input
+image_features = image_model.output
+
+# Image feature encoder model
+encoder = Model(inputs=image_input, outputs=image_features)
+
+# Define caption generation model
+vocab_size = 10000  # Example vocabulary size
+embedding_dim = 256
+max_length = 20  # Example maximum length of a caption
+
+caption_input = Input(shape=(max_length,))
+caption_embedding = Embedding(input_dim=vocab_size, output_dim=embedding_dim, mask_zero=True)(caption_input)
+caption_lstm = LSTM(256)(caption_embedding)
+
+# Combine image features and captions
+decoder_input = add([image_features, caption_lstm])
+output = Dense(vocab_size, activation='softmax')(decoder_input)
+
+# Define complete model
+model = Model(inputs=[image_input, caption_input], outputs=output)
+
+# Compile model
+model.compile(optimizer='adam', loss='categorical_crossentropy')
+
+# Example usage
+# Train the model with appropriate data and then generate captions
