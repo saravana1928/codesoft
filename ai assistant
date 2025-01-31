@@ -5,7 +5,7 @@ void calculate() {
     double num1, num2;
     char op;
     
-    cout << "Enter ttwo number aand its operator : ";
+    cout << "Enter two number aand its operator : ";
     cin >> num1 >> num2>> op;
 
     switch (op) {
